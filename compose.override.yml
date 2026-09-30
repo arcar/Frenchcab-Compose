@@ -1,0 +1,35 @@
+services:
+
+  backend:
+    container_name: frenchcab-backend
+
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+
+    volumes:
+      
+      - /app/node_modules
+      - ./backend:/app
+
+  gateway:
+    container_name: frenchcab-gateway
+
+    build:
+      context: ./gateway
+      dockerfile: ./Dockerfile
+    
+    volumes:
+      - /app/node_modules
+      - ./gateway:/app
+
+  frontend:
+    container_name: frenchcab-frontend
+
+    build:
+      context: ./frontend
+      target: builder
+
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
