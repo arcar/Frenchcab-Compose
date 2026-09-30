@@ -42,11 +42,14 @@ Ces repos `Frenchcab-Backend`, `Frenchcab-Frontend`, `Frenchcab-Gateway` sont **
 
 ### 2. VM
 
-Pour accéder à la VM :
+1. Pour accéder à la VM :
 ```bash
 ssh -i ~/Downloads/myKey.pem groupe2@{numéro api dans VM-linux.txt}
 ```
 Il existe 4 utilisateurs crées (`utilisateur1`, `utilisateur2`, `utilisateur3`, `utilisateur4`). Chacun a un mot de passe qui se trouve dans le fichier text `VM-linux.txt`.
+
+2. `deploy.sh`
+Dans la VM a été crée un fichier `deploy.sh` qui avec `cron` se déclenche à intervalle de **15 minnutes** pour faire un `docker pull` et un `docker up`.
 
 ### 3. Docker
 
