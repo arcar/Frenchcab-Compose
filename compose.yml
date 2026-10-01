@@ -9,8 +9,8 @@ services:
   gateway:
     image: lolaedoc/frenchcab-gateway:latest
 
-    env_file:
-      - name=value
+    # env_file:
+    #   - name=value
     
     ports:
       - "3000:3000"
@@ -22,8 +22,8 @@ services:
     ports:
       - "127.0.0.1:4200:4200"
 
-    volumes:
-      - /app/node_modules
+    # volumes:
+    #   - /app/node_modules
 
     command: npm start -- --host 0.0.0.0 --port 4200 
 
