@@ -1,13 +1,13 @@
 services:
 
   backend: 
-    image: lolaedoc/frenchcab-backend:latest
+    image: arcar13/yellowcab:frenchcab-backend
 
     ports: 
       - "127.0.0.1:3001:3001"
   
   gateway:
-    image: lolaedoc/frenchcab-gateway:latest
+    image: arcar13/yellowcab:frenchcab-gateway
 
     # env_file:
     #   - name=value
@@ -17,7 +17,7 @@ services:
     
   frontend:
 
-    image: lolaedoc/frenchcab-frontend:latest
+    image: arcar13/yellowcab:frenchcab-frontend
 
     ports:
       - "127.0.0.1:4200:4200"
