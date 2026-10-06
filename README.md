@@ -143,9 +143,9 @@ docker compose down
 Le fichier `docker-compose.yml` utilise les images suivantes :
 
 ```text
-lolaedoc/frenchcab-backend:latest
-lolaedoc/frenchcab-gateway:latest
-lolaedoc/frenchcab-frontend:latest
+arcar13/frenchcab-backend:latest
+arcar13/frenchcab-gateway:latest
+arcar13/frenchcab-frontend:latest
 ```
 
 Pour récupérer les dernières images disponibles :
