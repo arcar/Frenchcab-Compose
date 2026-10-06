@@ -1,13 +1,15 @@
 services:
 
   backend: 
-    image: arcar13/frenchcab-backend:latest
+    image: arcar13/yellowcab:frenchcab-backend
 
     ports: 
       - "127.0.0.1:3001:3001"
   
   gateway:
-    image: arcar13/frenchcab-gateway:latest
+    image: arcar13/yellowcab:frenchcab-gateway
+    environment:
+      - BACKEND_URL=http://backend:3001
 
     # env_file:
     #   - name=value
@@ -17,7 +19,7 @@ services:
     
   frontend:
 
-    image: arcar13/frenchcab-frontend:latest
+    image: arcar13/yellowcab:frenchcab-frontend
 
     ports:
       - "127.0.0.1:4200:4200"
@@ -25,5 +27,6 @@ services:
     # volumes:
     #   - /app/node_modules
 
-    command: npm start -- --host 0.0.0.0 --port 4200 
+    depends_on:
+      - gateway
 
