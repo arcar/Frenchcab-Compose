@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+# Met à jour la branche dev de Frenchcab-Compose et des microservices (usage : ./pull-dev.sh)
+
 set -u
 
 RACINE="$(cd "$(dirname "$0")" && pwd)"

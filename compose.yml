@@ -1,7 +1,7 @@
 services:
 
   backend:
-    image: arcar13/yellowcab:frenchcab-backend
+    image: arcar13/frenchcab-backend:latest
 
     ports:
       - "127.0.0.1:3001:3001"
