@@ -189,13 +189,13 @@ Backend  : http://localhost:3001
 Chaque repository applicatif contient un workflow GitHub Actions dans :
 
 ```text
-.github/workflows/docker.yml
+.github/workflows/ci.yml
 ```
 
 La CI se déclenche automatiquement lorsqu'un commit est poussé sur la branche :
 
 ```text
-staging
+dev
 ```
 Le CI fait actuellement `docker build` et `docker push`.
 Les identifiants ne sont pas écrits directement dans le workflow.
