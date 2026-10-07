@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-# Récupère la branche dev de Frenchcab-Compose et des microservices.
-# Les repos manquants sont clonés, ceux avec des modifications non commitées sont ignorés.
-# Usage : ./pull-dev.sh
-
 set -u
 
 RACINE="$(cd "$(dirname "$0")" && pwd)"
