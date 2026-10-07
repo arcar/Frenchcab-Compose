@@ -2,9 +2,11 @@ services:
 
   backend:
     image: arcar13/frenchcab-backend:latest
-
     ports:
       - "127.0.0.1:3001:3001"
+    volumes :
+    - ./raw_data:/raw_data
+    - ./ETL:/ETL
 
   gateway:
     image: arcar13/frenchcab-gateway:latest
