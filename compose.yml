@@ -5,8 +5,8 @@ services:
     ports:
       - "127.0.0.1:3001:3001"
     volumes :
-    - ./raw_data:/raw_data
-    - ./ETL:/ETL
+      - /opt/frenchcab/data/raw_data:/raw_data
+      - /opt/frenchcab/data/db:/data
 
   gateway:
     image: arcar13/frenchcab-gateway:latest
