@@ -7,6 +7,11 @@ services:
       context: ./Frenchcab-Backend
       dockerfile: ./Dockerfile
 
+    # En local : base et modèle générés directement dans le repo backend
+    environment:
+      - DB_RELATIONNELLE=/app/ETL/frenchcab_relationnelle.db
+      - MODEL_PATH=/app/ML/modele_temps_trajet.pkl
+
     volumes:
       
       - /app/node_modules

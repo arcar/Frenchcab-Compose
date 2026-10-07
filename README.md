@@ -15,32 +15,51 @@ Le dossier `Frenchcab-compose` contient les autres dossiers du projet (`Frenchca
 
 ### 1. Github
 
-1. Cloner le repo Github :
-```powershell
-https://github.com/arcar/Frenchcab-Compose.git
+Le projet est réparti sur 4 repos de l'organisation `arcar` :
 
+| Repo | Contenu |
+|---|---|
+| `Frenchcab-Compose` | Orchestration (`compose.yml`, `compose.override.yml`) et scripts |
+| `Frenchcab-Backend` | API Python (FastAPI), ETL et modèle ML |
+| `Frenchcab-Frontend` | Application Angular |
+| `Frenchcab-Gateway` | Gateway Node.js (Express) entre le front et le backend |
 
+Demander l'accès à `arcar` pour être ajouté en tant que contributeur, puis lire le `CONTRIBUTING.md` de chaque microservice.
+
+#### Création du projet
+
+Le script `pull-all-repos.sh` clone `Frenchcab-Compose`, puis les trois microservices **à l'intérieur** (sur la branche `dev`), et crée le `.env` à partir de `.env.example` :
+
+```bash
+# Récupérer le script seul, puis le lancer dans le dossier de travail
+curl -O https://raw.githubusercontent.com/arcar/Frenchcab-Compose/dev/pull-all-repos.sh
+bash pull-all-repos.sh                         # clone en https
+bash pull-all-repos.sh git@github.com:arcar/   # ou en SSH
 ```
-Demander l'accè à `mmorkos-cyber` pour être ajouté en tant que contributeur, puis lire le `contributing`.
 
-2. Cloner les autres repos dans le dossier `Frenchcab-compose` :
-- Frenchcab-Gateway
- ```powershell
-https://github.com/mmorkos-cyber/Frenchcab-Gateway.git
-```
-- Frenchcab-Backend
-```powershell
-https://github.com/mmorkos-cyber/Frenchcab-Backend.git
-```
-- Frenchcab-Frontend :
-```powershell
-https://github.com/mmorkos-cyber/Frenchcab-Frontend.git
-```
-Ces repos `Frenchcab-Backend`, `Frenchcab-Frontend`, `Frenchcab-Gateway` sont **gitignorés**.
+Si `Frenchcab-Compose` est déjà cloné, lancer `./pull-all-repos.sh` depuis ce dossier : seuls les repos manquants sont clonés.
 
-3. Chaque repo a un fichier `CONTRIUTING.md` et un `README.md`, qui vous expliquera l'installation mais aussi où en est le groupe à la fin de la semaine sur chaque partie.
+Structure obtenue (les dossiers des microservices sont **gitignorés** dans `Frenchcab-Compose`) :
 
-4. Concernant ce repo on y trouve que 2 branches `main` et `dev`, étant donné que celui-ci n'est là que pour l'orchestration il n'a pas pour objectif d'être modifié (sauf compose).
+```text
+Frenchcab-Compose/
+├── Frenchcab-Backend/
+├── Frenchcab-Frontend/
+├── Frenchcab-Gateway/
+├── compose.yml
+├── compose.override.yml
+├── pull-all-repos.sh   # création du projet
+├── pull-dev.sh         # mise à jour de dev sur les 4 repos
+└── push-dev.sh         # push des commits de dev sur les 4 repos (-n : simulation)
+```
+
+#### Au quotidien
+
+- `./pull-dev.sh` : met à jour `dev` sur les 4 repos (ignore ceux qui ont des modifications non commitées).
+- `./push-dev.sh` : pousse les commits de `dev` sur les 4 repos (refuse si `dev` distante a avancé : lancer `./pull-dev.sh` d'abord).
+- Dans chaque microservice, un push sur sa branche perso lance les tests puis la merge automatiquement dans `dev` (voir le `CONTRIBUTING.md`).
+
+Ce repo `Frenchcab-Compose` n'a que 2 branches, `main` et `dev` : il ne sert qu'à l'orchestration et n'a pas vocation à être modifié (sauf compose et scripts).
 
 ### 2. VM
 
@@ -109,16 +128,24 @@ Le front est alors buildé en `development` et appelle la gateway sur `http://lo
 
 ## Environnements (local / VM Azure)
 
-Copier `.env.example` en `.env` et adapter `FRONT_PORT` :
+Copier `.env.example` en `.env` et adapter `FRONT_PORT` si besoin (4200 par défaut, en local comme sur la VM).
 
-- en local : `FRONT_PORT=4200` (valeur par défaut)
-- sur la VM : `FRONT_PORT=80`
-
-Sur la VM, lancer uniquement `compose.yml` (sans l'override) : l'image Docker Hub du front est buildée en `production` et appelle la gateway sur `http://g2.valentinduflot.fr:3000`.
+Sur la VM, le nginx de l'hôte gère le https de `g2.valentinduflot.fr` et redirige vers le front (port `FRONT_PORT`). Lancer uniquement `compose.yml` (sans l'override) : l'image Docker Hub du front est buildée en `production` et appelle la gateway en relatif sur `/api`, que le nginx du conteneur front redirige vers `http://gateway:3000`.
 
 ```bash
 docker compose -f compose.yml up -d
 ```
+
+### Données du backend sur la VM
+
+La base relationnelle et le modèle ML ne sont pas versionnés, donc absents de l'image Docker Hub. Sur la VM, les placer dans le dossier `data/` à côté de `compose.yml` (monté dans le conteneur backend, les réservations y sont conservées entre deux déploiements) :
+
+```text
+data/frenchcab_relationnelle.db   (généré par ETL/Load.py)
+data/modele_temps_trajet.pkl      (généré par ML/entrainement.py)
+```
+
+Sans ces fichiers, `/zones` et `/courses` renvoient une erreur 500 / 503.
 
 
 ## Consulter les logs
