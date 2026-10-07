@@ -4,6 +4,11 @@ services:
     image: arcar13/frenchcab-backend:latest
     ports:
       - "127.0.0.1:3001:3001"
+
+    environment:
+      - DB_RELATIONNELLE=/data/frenchcab_relationnelle.db
+      - MODEL_PATH=/app/ML/modele_temps_trajet.pkl
+
     volumes :
       - /opt/frenchcab/data/raw_data:/raw_data
       - /opt/frenchcab/data/db:/data
