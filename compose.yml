@@ -1,13 +1,13 @@
 services:
 
   backend: 
-    image: arcar13/yellowcab:frenchcab-backend
+    image: arcar13/frenchcab-backend:latest
 
     ports: 
       - "127.0.0.1:3001:3001"
   
   gateway:
-    image: arcar13/yellowcab:frenchcab-gateway
+    image: arcar13/frenchcab-gateway:latest
     environment:
       - BACKEND_URL=http://backend:3001
 
@@ -19,7 +19,7 @@ services:
     
   frontend:
 
-    image: arcar13/yellowcab:frenchcab-frontend
+    image: arcar13/frenchcab-frontend:latest
 
     ports:
       - "127.0.0.1:4200:4200"
