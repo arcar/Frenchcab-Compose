@@ -3,6 +3,14 @@ services:
   backend:
     image: arcar13/frenchcab-backend:latest
 
+    # Base relationnelle et modèle ML (non versionnés) dans ./data,
+    # conservés entre deux déploiements (les réservations y sont écrites)
+    environment:
+      - DB_RELATIONNELLE=/data/frenchcab_relationnelle.db
+      - MODEL_PATH=/data/modele_temps_trajet.pkl
+    volumes:
+      - ./data:/data
+
     ports:
       - "127.0.0.1:3001:3001"
 

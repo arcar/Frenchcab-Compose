@@ -117,6 +117,17 @@ Sur la VM, le nginx de l'hôte gère le https de `g2.valentinduflot.fr` et redir
 docker compose -f compose.yml up -d
 ```
 
+### Données du backend sur la VM
+
+La base relationnelle et le modèle ML ne sont pas versionnés, donc absents de l'image Docker Hub. Sur la VM, les placer dans le dossier `data/` à côté de `compose.yml` (monté dans le conteneur backend, les réservations y sont conservées entre deux déploiements) :
+
+```text
+data/frenchcab_relationnelle.db   (généré par ETL/Load.py)
+data/modele_temps_trajet.pkl      (généré par ML/entrainement.py)
+```
+
+Sans ces fichiers, `/zones` et `/courses` renvoient une erreur 500 / 503.
+
 
 ## Consulter les logs
 
