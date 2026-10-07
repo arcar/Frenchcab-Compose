@@ -109,12 +109,9 @@ Le front est alors buildé en `development` et appelle la gateway sur `http://lo
 
 ## Environnements (local / VM Azure)
 
-Copier `.env.example` en `.env` et adapter `FRONT_PORT` :
+Copier `.env.example` en `.env` et adapter `FRONT_PORT` si besoin (4200 par défaut, en local comme sur la VM).
 
-- en local : `FRONT_PORT=4200` (valeur par défaut)
-- sur la VM : `FRONT_PORT=80`
-
-Sur la VM, lancer uniquement `compose.yml` (sans l'override) : l'image Docker Hub du front est buildée en `production` et appelle la gateway sur `http://g2.valentinduflot.fr:3000`.
+Sur la VM, le nginx de l'hôte gère le https de `g2.valentinduflot.fr` et redirige vers le front (port `FRONT_PORT`). Lancer uniquement `compose.yml` (sans l'override) : l'image Docker Hub du front est buildée en `production` et appelle la gateway en relatif sur `/api`, que le nginx du conteneur front redirige vers `http://gateway:3000`.
 
 ```bash
 docker compose -f compose.yml up -d

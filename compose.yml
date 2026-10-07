@@ -17,7 +17,7 @@ services:
   frontend:
     image: arcar13/frenchcab-frontend:latest
 
-    # Port du front sur l'hôte : 4200 en local, 80 sur la VM (FRONT_PORT dans .env)
+    # Port du front sur l'hôte (FRONT_PORT dans .env, 4200 par défaut)
     ports:
       - "${FRONT_PORT:-4200}:80"
 
