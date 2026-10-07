@@ -29,6 +29,9 @@ services:
     build:
       context: ./Frenchcab-Frontend
       dockerfile: ./Dockerfile
+      # Build Angular en development : le front appelle la gateway sur localhost
+      args:
+        BUILD_CONFIG: development
 
     volumes:
       - /app/node_modules

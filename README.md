@@ -105,6 +105,21 @@ docker-compose.override.yml
 
 Le fichier `docker-compose.override.yml` permet de construire les images à partir des projets locaux.
 
+Le front est alors buildé en `development` et appelle la gateway sur `http://localhost:3000`.
+
+## Environnements (local / VM Azure)
+
+Copier `.env.example` en `.env` et adapter `FRONT_PORT` :
+
+- en local : `FRONT_PORT=4200` (valeur par défaut)
+- sur la VM : `FRONT_PORT=80`
+
+Sur la VM, lancer uniquement `compose.yml` (sans l'override) : l'image Docker Hub du front est buildée en `production` et appelle la gateway sur `http://g2.valentinduflot.fr:3000`.
+
+```bash
+docker compose -f compose.yml up -d
+```
+
 
 ## Consulter les logs
 

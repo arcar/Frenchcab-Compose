@@ -15,12 +15,11 @@ services:
       - "3000:3000"
 
   frontend:
-    image: arcar13/yellowcab:frenchcab-frontend
+    image: arcar13/frenchcab-frontend:latest
 
+    # Port du front sur l'hôte : 4200 en local, 80 sur la VM (FRONT_PORT dans .env)
     ports:
-      - "127.0.0.1:4200:4200"
+      - "${FRONT_PORT:-4200}:80"
 
-    # volumes:
-    #   - /app/node_modules
-
-    command: npm start -- --host 0.0.0.0 --port 4200
+    depends_on:
+      - gateway
