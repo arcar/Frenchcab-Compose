@@ -8,10 +8,11 @@ services:
     environment:
       - DB_RELATIONNELLE=/data/frenchcab_relationnelle.db
       - MODEL_PATH=/models/modele_temps_trajet.pkl
-    volumes:
-      - ./opt/frenchcab/data/raw_data:./raw_data
-      - ./opt/frenchcab/data/db:./data
-      - ./opt/frenchcab/data/ml:./ml
+
+    volumes :
+      - /opt/frenchcab/data/raw_data:/raw_data
+      - /opt/frenchcab/data/db:/data
+      - /opt/frenchcab/data/ml:/models:ro
 
   gateway:
     image: arcar13/frenchcab-gateway:latest
@@ -30,8 +31,3 @@ services:
 
     depends_on:
       - gateway
-
-volumes :
-  /opt/frenchcab/data/raw_data:
-  /opt/frenchcab/data/db:
-  /opt/frenchcab/data/ml:
