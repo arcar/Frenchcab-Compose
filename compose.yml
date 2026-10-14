@@ -10,9 +10,9 @@ services:
       - MODEL_PATH=/models/modele_temps_trajet.pkl
 
     volumes:
-      - /opt/frenchcab/data/raw_data:/raw_data
-      - /opt/frenchcab/data/db:/data
-      - /opt/frenchcab/data/ml:/ml
+      - ./raw_data:/raw_data
+      - ./db:/data
+      - ./data/ml:/ml
 
   gateway:
     image: arcar13/frenchcab-gateway:latest
