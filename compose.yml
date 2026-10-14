@@ -14,7 +14,6 @@ services:
       - /opt/frenchcab/data/db:/data
       - /opt/frenchcab/data/ml:/models:ro
 
-
   gateway:
     image: arcar13/frenchcab-gateway:latest
     environment:
