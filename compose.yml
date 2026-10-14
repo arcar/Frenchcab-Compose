@@ -8,7 +8,7 @@ services:
     environment:
       - DB_RELATIONNELLE=/data/frenchcab_relationnelle.db
       - MODEL_PATH=/models/modele_temps_trajet.pkl
-    volumes :
+    volumes:
       - ./opt/frenchcab/data/raw_data:./raw_data
       - ./opt/frenchcab/data/db:./data
       - ./opt/frenchcab/data/ml:./ml
