@@ -9,7 +9,7 @@ services:
       - DB_RELATIONNELLE=/data/frenchcab_relationnelle.db
       - MODEL_PATH=/models/modele_temps_trajet.pkl
 
-    volumes :
+    volumes:
       - /opt/frenchcab/data/raw_data:/raw_data
       - /opt/frenchcab/data/db:/data
       - /opt/frenchcab/data/ml:/models:ro
@@ -21,6 +21,9 @@ services:
 
     ports:
       - "3000:3000"
+
+    depends_on:
+      - backend
 
   frontend:
     image: arcar13/frenchcab-frontend:latest
