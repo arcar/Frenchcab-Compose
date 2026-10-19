@@ -1,3 +1,5 @@
 Frenchcab-Backend/
 Frenchcab-Frontend/
 Frenchcab-Gateway
+.env
+data/

@@ -1,27 +1,36 @@
 services:
 
   backend:
-    image: arcar13/yellowcab:frenchcab-backend
-
+    image: arcar13/frenchcab-backend:latest
     ports:
       - "127.0.0.1:3001:3001"
 
-  gateway:
-    image: arcar13/yellowcab:frenchcab-gateway
+    environment:
+      - DB_RELATIONNELLE=/data/frenchcab_relationnelle.db
+      - MODEL_PATH=/models/modele_temps_trajet.pkl
 
+    volumes:
+      - ./raw_data:/raw_data
+      - ./db:/data
+      - ./data/ml:/ml
+
+  gateway:
+    image: arcar13/frenchcab-gateway:latest
     environment:
       - BACKEND_URL=http://backend:3001
 
     ports:
       - "3000:3000"
 
+    depends_on:
+      - backend
+
   frontend:
-    image: arcar13/yellowcab:frenchcab-frontend
+    image: arcar13/frenchcab-frontend:latest
 
+    # Port du front sur l'hôte (FRONT_PORT dans .env, 4200 par défaut)
     ports:
-      - "127.0.0.1:4200:4200"
+      - "${FRONT_PORT:-4200}:80"
 
-    # volumes:
-    #   - /app/node_modules
-
-    command: npm start -- --host 0.0.0.0 --port 4200
+    depends_on:
+      - gateway
