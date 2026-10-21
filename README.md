@@ -260,16 +260,3 @@ puis les lancer avec :
 ```bash
 docker compose up
 ```
-
-## Etat Brief 2 - Groupe 3 
-L'application est déployée sur g2.valentinduflot.fr. 
-Il est possible de réaliser une prédiction et une réservation.
-Problème en cours : 
-- Impossible d'annuler une réservation. 
-- Base remise à zéro à chaque ```docker compose down```
-
-### TO DO :
-- Sauvegarder les modifications de la base de données relationnelles dans un volume afin que les réservations soient sauvegardées et accessibles même après un reboot des conteneurs.
-- Revoir la route d'annulation des reservations.
-- Interdire les réservations dans le passé.
-- Rajouter les routes demandées du Brief 1 (liste des courses de taxi et détails)

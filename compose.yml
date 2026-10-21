@@ -1,13 +1,16 @@
+
 services:
 
   backend:
-    image: arcar13/frenchcab-backend:latest
+    image: ${BACKEND_IMAGE:-arcar13/frenchcab-backend:latest}
+
     ports:
       - "127.0.0.1:3001:3001"
 
     environment:
       - DB_RELATIONNELLE=/data/frenchcab_relationnelle.db
-      - MODEL_PATH=/models/modele_temps_trajet.pkl
+      - ML_DIR=/ml
+      - MODELS_DIR=/ml/modeles
 
     volumes:
       - ./raw_data:/raw_data
@@ -16,6 +19,7 @@ services:
 
   gateway:
     image: arcar13/frenchcab-gateway:latest
+
     environment:
       - BACKEND_URL=http://backend:3001
 
@@ -28,7 +32,6 @@ services:
   frontend:
     image: arcar13/frenchcab-frontend:latest
 
-    # Port du front sur l'hôte (FRONT_PORT dans .env, 4200 par défaut)
     ports:
       - "${FRONT_PORT:-4200}:80"
 
